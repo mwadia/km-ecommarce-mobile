@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import Cart from './components/cart';
 import Home from './components/home';
 import LandingPage from './components/landingPage';
 import Nav from './components/nav';
 import Footer from './components/public/Footer';
-import SignIn from './components/signs';
+import SignIn from './components/signs/SignIn';
+import SignUp from './components/signs/SignUp';
 
 function App() {
   const [navgate, setNavgate] = useState(0);
@@ -16,7 +18,8 @@ function App() {
           {navgate === 0 && <LandingPage setNavgate={setNavgate} />}
           {navgate === 1 && <Home setNavgate={setNavgate} />}
           {navgate === 2 && <SignIn setNavgate={setNavgate} />}
-          <Footer />
+          {navgate === 3 && <Cart setNavgate={setNavgate} />}
+          {/* {!navgate === 2 && <Footer />} */}
           <StatusBar style='auto' />
         </View>
       </ScrollView>

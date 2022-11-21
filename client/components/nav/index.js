@@ -32,17 +32,15 @@ function Nav({ setNavgate }) {
         onPress={() => setNavgate(2)}
       ></IconButton>
       {/* <IconButton
-        icon='login-variant'
+        icon='camera'
         textColor='#3d4526'
-        onPress={() => setNavgate(2)}
+        onPress={() => setNavgate(3)}
       ></IconButton> */}
-      {user && (
-        <IconButton
-          icon='cart'
-          textColor='#3d4526'
-          onPress={() => setNavgate(3)}
-        ></IconButton>
-      )}
+      <IconButton
+        icon='cart'
+        textColor='#3d4526'
+        onPress={() => setNavgate(3)}
+      ></IconButton>
     </View>
   );
 }
