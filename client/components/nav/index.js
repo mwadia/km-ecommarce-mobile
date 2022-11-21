@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import SignsForm from '../signs';
 function Nav({ setNavgate }) {
   const user = false;
   return (
@@ -28,11 +27,15 @@ function Nav({ setNavgate }) {
         onPress={() => setNavgate(1)}
       ></IconButton>
       <IconButton
-        icon='account-circle'
+        icon='login-variant'
         textColor='#3d4526'
         onPress={() => setNavgate(2)}
       ></IconButton>
-      {!user && <SignsForm />}
+      {/* <IconButton
+        icon='login-variant'
+        textColor='#3d4526'
+        onPress={() => setNavgate(2)}
+      ></IconButton> */}
       {user && (
         <IconButton
           icon='cart'

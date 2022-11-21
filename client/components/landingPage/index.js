@@ -20,7 +20,7 @@ export default function LandingPage({ setNavgate }) {
           source={require('../../assets/landingPageBG-mobile.jpeg')}
           style={styles.container}
         >
-          <Text>linaaaa</Text>
+          <Text></Text>
           <StartButton setNavgate={setNavgate} />
         </ImageBackground>
       </View>
