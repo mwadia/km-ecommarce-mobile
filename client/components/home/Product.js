@@ -23,9 +23,12 @@ const Product = ({ product }) => {
     if (isCart) {
       Apiservices.delete(`/destroyoneproductcart/${id}`)
       SetCountCart(countCart - 1);
+      console.log(countCart);
     } else {
       Apiservices.post('/addproducttocart', { ProductId: id })
       SetCountCart(countCart + 1);
+      console.log(countCart);
+
     }
     SetIsCart(!isCart);
   };
