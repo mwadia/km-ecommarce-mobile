@@ -1,9 +1,8 @@
 import React from 'react';
 import { Text, View, Dimensions, Image } from 'react-native';
-import ButtonSign from './ButtonSign';
 import InputSign from './inputSign';
 
-function SignIn() {
+function SignIn({ setNavgate }) {
   let ScreenHeight = Dimensions.get('window').height;
 
   return (
@@ -32,10 +31,12 @@ function SignIn() {
           <InputSign type={'email'} />
           <InputSign type={'password'} />
         </View>
-        <ButtonSign type='Login' />
+        {/* <ButtonSign type='Login' /> */}
         <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
           <Text>Don't have an account? </Text>
-          <Text style={{ color: '#b97d3b' }}>Sign up</Text>
+          <Text onPress={() => setNavgate(4)} style={{ color: '#b97d3b' }}>
+            Sign up
+          </Text>
         </View>
       </View>
     </View>

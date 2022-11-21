@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import JwtServise from './JwtServise';
+
 const Apiservices = axios.create({
   baseURL: 'https://commercekm.onrender.com/',
   withCredentials: true,
@@ -7,7 +9,7 @@ const Apiservices = axios.create({
 
 Apiservices.interceptors.request.use(
   (config) => {
-    // config.headers['Authorization'] = `Bearer ${JwtService.getToken()}`
+    config.headers['Authorization'] = `Bearer ${JwtServise.getToken()}`
     return Promise.resolve(config);
   },
   (error) => {

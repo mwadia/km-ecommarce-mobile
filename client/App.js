@@ -10,7 +10,7 @@ import SignIn from './components/signs/SignIn';
 import SignUp from './components/signs/SignUp';
 
 function App() {
-  const [navgate, setNavgate] = useState(0);
+  const [navgate, setNavgate] = useState(3);
   return (
     <SafeAreaView>
       <ScrollView>
@@ -20,6 +20,8 @@ function App() {
           {navgate === 2 && <SignIn setNavgate={setNavgate} />}
           {navgate === 3 && <Cart setNavgate={setNavgate} />}
           {/* {!navgate === 2 && <Footer />} */}
+          {navgate === 4 && <SignUp setNavgate={setNavgate} />}
+          <Footer />
           <StatusBar style='auto' />
         </View>
       </ScrollView>
