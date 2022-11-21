@@ -1,26 +1,25 @@
 import { AsyncStorage } from 'react-native';
-let tokenName='token'
-const JwtServise={
-  setToken:async (value) => {
+let tokenName = 'token';
+const JwtServise = {
+  setToken: async (value) => {
     try {
-      await AsyncStorage.setItem(tokenName, value)
-    } catch(e) {
+      await AsyncStorage.setItem(tokenName, value);
+    } catch (e) {
       // save error
     }
-  
-    console.log('Done.')
+
+    console.log('Done.');
   },
 
-  getToken:async()=> {
+  getToken: async () => {
     let result = await AsyncStorage.getItem(tokenName);
-    console.log(result);
-    return result
+    console.log(typeof result);
+    return result;
   },
 
- destroyToken:()=> {
+  destroyToken: () => {
     return AsyncStorage.removeItem(tokenName);
-  }
-}
+  },
+};
 
-
-export default JwtServise
+export default JwtServise;

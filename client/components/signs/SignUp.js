@@ -1,9 +1,10 @@
 import { Text, View, Dimensions, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import UseUpdateImg from '../../hook/UseUpdateImg';
 import Apiservices from '../../servese/ApiServices';
 import JwtServise from '../../servese/JwtServise';
+import { Store } from '../Storage';
 function SignUp() {
   const [signUp, setSignUp] = useState({
     name: '',
@@ -12,9 +13,9 @@ function SignUp() {
     confirmPassword: '',
     userImg: '',
   });
+  const { user, setUser } = useContext(Store);
   const [imgFile, setImgFile] = useState('');
   const handelSignUp = () => {
-    console.log(111);
     const newData = new FormData();
     newData.append('file', imgFile);
     newData.append('data', JSON.stringify(signUp));
@@ -25,21 +26,10 @@ function SignUp() {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then((isExist) => {
-        console.log(isExist.data);
         if (isExist.data.data) {
-          console.log(222);
           JwtServise.setToken(isExist.data.data.token);
-          console.log('eee');
+          setUser(isExist.data.data);
         }
-
-        console.log(333333);
-        // if (isExist.data.data) {
-        //   setUser(isExist.data.data);
-        //   toast.success(isExist.data.msg);
-        //   setOpen(false);
-        // } else {
-        //   toast.error(isExist.data.msg);
-        // }
       })
       .catch((err) => console.log(err));
   };
@@ -57,6 +47,7 @@ function SignUp() {
         }}
       >
         <View style={{ alignSelf: 'center' }}>
+          <Text onPress={() => console.log(user)}>user</Text>
           <Image
             style={{ width: 100, height: 100 }}
             source={require('../../assets/logo.jpeg')}

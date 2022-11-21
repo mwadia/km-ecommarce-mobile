@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
+import { Store } from '../Storage';
+import { Badge } from 'react-native-paper';
+
 function Nav({ setNavgate }) {
   const user = false;
+  const { countCart } = useContext(Store);
+  console.log(countCart);
   return (
     <View
       style={{
@@ -36,11 +41,16 @@ function Nav({ setNavgate }) {
         textColor='#3d4526'
         onPress={() => setNavgate(3)}
       ></IconButton> */}
-      <IconButton
-        icon='cart'
-        textColor='#3d4526'
-        onPress={() => setNavgate(3)}
-      ></IconButton>
+      <View style={{ position: 'relative' }}>
+        <IconButton
+          icon='cart'
+          textColor='#3d4526'
+          onPress={() => setNavgate(3)}
+        ></IconButton>
+        <Badge style={{ position: 'absolute', right: 5, top: 5 }}>
+          {countCart}
+        </Badge>
+      </View>
     </View>
   );
 }

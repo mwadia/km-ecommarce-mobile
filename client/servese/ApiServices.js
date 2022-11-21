@@ -9,7 +9,8 @@ const Apiservices = axios.create({
 
 Apiservices.interceptors.request.use(
   (config) => {
-    config.headers['Authorization'] = `Bearer ${JwtServise.getToken()}`
+    let token = JwtServise.getToken();
+    config.headers['Authorization'] = `Bearer ${token}`;
     return Promise.resolve(config);
   },
   (error) => {
