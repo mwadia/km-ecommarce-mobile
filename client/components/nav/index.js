@@ -5,9 +5,7 @@ import { Store } from '../Storage';
 import { Badge } from 'react-native-paper';
 
 function Nav({ setNavgate }) {
-  const user = false;
-  const { countCart } = useContext(Store);
-  console.log(countCart);
+  const { countCart,user } = useContext(Store);
   return (
     <View
       style={{

@@ -13,8 +13,9 @@ function App() {
   const [navgate, setNavgate] = useState(3);
   return (
     <SafeAreaView>
+              <Storage>
+
       <ScrollView>
-        <Storage>
           <View style={{ flex: 1, backgroundColor: '#f7f7f7' }}>
             {navgate === 0 && <LandingPage setNavgate={setNavgate} />}
             {navgate === 1 && <Home setNavgate={setNavgate} />}
@@ -25,9 +26,10 @@ function App() {
             <Footer />
             <StatusBar style='auto' />
           </View>
-        </Storage>
       </ScrollView>
       <Nav setNavgate={setNavgate} />
+      </Storage>
+
     </SafeAreaView>
   );
 }
