@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
-
+import SignsForm from '../signs';
 function Nav({ setNavgate }) {
+  const user = false;
   return (
     <View
       style={{
@@ -31,11 +32,14 @@ function Nav({ setNavgate }) {
         textColor='#3d4526'
         onPress={() => setNavgate(2)}
       ></IconButton>
-      <IconButton
-        icon='cart'
-        textColor='#3d4526'
-        onPress={() => setNavgate(3)}
-      ></IconButton>
+      {!user && <SignsForm />}
+      {user && (
+        <IconButton
+          icon='cart'
+          textColor='#3d4526'
+          onPress={() => setNavgate(3)}
+        ></IconButton>
+      )}
     </View>
   );
 }
