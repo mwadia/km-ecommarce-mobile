@@ -20,7 +20,6 @@ const JwtServise = {
       return value
     }
   } catch(e) {
-    // error reading value
   }
   },
 
