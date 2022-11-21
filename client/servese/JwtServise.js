@@ -17,7 +17,6 @@ const JwtServise = {
     try{ 
     let value = await AsyncStorage.getItem(tokenName);
     if(value !== null) {
-      // value previously stored
       return value
     }
   } catch(e) {
