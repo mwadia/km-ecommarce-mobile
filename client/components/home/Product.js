@@ -21,14 +21,10 @@ const Product = ({ product }) => {
   }, [cartProduct]);
   const handelAddtoCart = () => {
     if (isCart) {
-      Apiservices.delete(`/destroyoneproductcart/${id}`).then((res) =>
-        toast.success(res.data.msg)
-      );
+      Apiservices.delete(`/destroyoneproductcart/${id}`)
       SetCountCart(countCart - 1);
     } else {
-      Apiservices.post('/addproducttocart', { ProductId: id }).then((res) =>
-        toast.success(res.data.msg)
-      );
+      Apiservices.post('/addproducttocart', { ProductId: id })
       SetCountCart(countCart + 1);
     }
     SetIsCart(!isCart);

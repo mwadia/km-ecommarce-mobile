@@ -3,7 +3,9 @@ let tokenName = 'token';
 const JwtServise = {
   setToken: async (value) => {
     try {
-      await AsyncStorage.setItem(tokenName, value);
+      const jsonValue = JSON.stringify(value)
+
+      await AsyncStorage.setItem(tokenName, jsonValue);
     } catch (e) {
       // save error
     }
@@ -12,9 +14,15 @@ const JwtServise = {
   },
 
   getToken: async () => {
-    let result = await AsyncStorage.getItem(tokenName);
-    console.log(typeof result);
-    return result;
+    try{ 
+    let value = await AsyncStorage.getItem(tokenName);
+    if(value !== null) {
+      // value previously stored
+      return value
+    }
+  } catch(e) {
+    // error reading value
+  }
   },
 
   destroyToken: () => {
