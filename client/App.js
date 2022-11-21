@@ -11,11 +11,11 @@ import SignUp from './components/signs/SignUp';
 import Storage from './components/Storage';
 function App() {
   const [navgate, setNavgate] = useState(3);
+
   return (
     <SafeAreaView>
-              <Storage>
-
-      <ScrollView>
+      <Storage>
+        <ScrollView>
           <View style={{ flex: 1, backgroundColor: '#f7f7f7' }}>
             {navgate === 0 && <LandingPage setNavgate={setNavgate} />}
             {navgate === 1 && <Home setNavgate={setNavgate} />}
@@ -26,10 +26,9 @@ function App() {
             <Footer />
             <StatusBar style='auto' />
           </View>
-      </ScrollView>
-      <Nav setNavgate={setNavgate} />
+        </ScrollView>
+        <Nav navgate={navgate} setNavgate={setNavgate} />
       </Storage>
-
     </SafeAreaView>
   );
 }

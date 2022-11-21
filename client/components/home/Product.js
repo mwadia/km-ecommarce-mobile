@@ -22,19 +22,18 @@ const Product = ({ product }) => {
   }, [cartProduct]);
   const handelAddtoCart = () => {
     if (isCart) {
-      Apiservices.delete(`/destroyoneproductcart/${id}`)
+      Apiservices.delete(`/destroyoneproductcart/${id}`);
       SetCountCart(countCart - 1);
     } else {
-      Apiservices.post('/addproducttocart', { ProductId: id })
+      Apiservices.post('/addproducttocart', { ProductId: id });
       SetCountCart(countCart + 1);
-
     }
     SetIsCart(!isCart);
   };
   return (
     <Card
       style={{
-        backgroundColor: '#f7f7f7',
+        backgroundColor: '#fff',
         marginBottom: 50,
         padding: 20,
         position: 'relative',

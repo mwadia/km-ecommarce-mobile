@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Products from './Products';
 import Apiservices from '../../servese/ApiServices';
 function Home() {
   const [products, setProducts] = useState([]);
   const [text, setText] = React.useState('');
+  let ScreenHeight = Dimensions.get('window').height;
 
   const [filter, setFilter] = useState({
     q: '',
@@ -21,7 +22,7 @@ function Home() {
     fetchProducts();
   }, [filter]);
   return (
-    <View style={{ paddingTop: 100 }}>
+    <View style={{ paddingTop: 100, minHeight: ScreenHeight }}>
       <TextInput
         label='Search'
         value={filter.q}

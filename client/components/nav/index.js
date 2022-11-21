@@ -1,11 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { Store } from '../Storage';
 import { Badge } from 'react-native-paper';
+import Apiservices from '../../servese/ApiServices';
 
-function Nav({ setNavgate }) {
-  const { countCart,user } = useContext(Store);
+function Nav({ setNavgate, navgate }) {
+  const { countCart, setTotal, setCartProduct, SetCountCart } =
+    useContext(Store);
+
+  const handleClickOpen = () => {
+    setNavgate(3);
+  };
+  useEffect(() => {
+    Apiservices.get('/getcartproduct').then((res) => {
+      setCartProduct(res.data.data);
+      SetCountCart(res.data.data.length);
+      setTotal(
+        res.data.data.reduce((a, b) => a + b.Product.price * b.count, 0)
+      );
+    });
+  }, [navgate]);
+
   return (
     <View
       style={{
@@ -15,7 +31,7 @@ function Nav({ setNavgate }) {
         bottom: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // backgroundColor: 'red',
+        backgroundColor: 'grey',
       }}
     >
       <IconButton
@@ -43,7 +59,7 @@ function Nav({ setNavgate }) {
         <IconButton
           icon='cart'
           textColor='#3d4526'
-          onPress={() => setNavgate(3)}
+          onPress={handleClickOpen}
         ></IconButton>
         <Badge style={{ position: 'absolute', right: 5, top: 5 }}>
           {countCart}

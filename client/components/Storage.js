@@ -8,7 +8,7 @@ function Storage(props) {
   const [user, setUser] = useState(null);
   const [cartProduct, setCartProduct] = useState([]);
   const [countCart, SetCountCart] = useState(0);
-
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     Apiservices.get('/user').then((res) => {
@@ -36,6 +36,8 @@ function Storage(props) {
           SetCountCart,
           cartProduct,
           setCartProduct,
+          total,
+          setTotal,
         }}
       >
         {props.children}
