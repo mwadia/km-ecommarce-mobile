@@ -6,9 +6,10 @@ import LandingPage from './components/landingPage';
 import Nav from './components/nav';
 import Footer from './components/public/Footer';
 import SignIn from './components/signs';
+import SignUp from './components/signs/SignUp';
 
 function App() {
-  const [navgate, setNavgate] = useState(0);
+  const [navgate, setNavgate] = useState(3);
   return (
     <SafeAreaView>
       <ScrollView>
@@ -16,6 +17,7 @@ function App() {
           {navgate === 0 && <LandingPage setNavgate={setNavgate} />}
           {navgate === 1 && <Home setNavgate={setNavgate} />}
           {navgate === 2 && <SignIn setNavgate={setNavgate} />}
+          {navgate === 3 && <SignUp setNavgate={setNavgate} />}
           <Footer />
           <StatusBar style='auto' />
         </View>
