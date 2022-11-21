@@ -1,12 +1,8 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
-function SignIn() {
-  return (
-    <View>
-      <Text>sign in</Text>
-    </View>
-  );
+function index() {
+  return <View></View>;
 }
 
-export default SignIn;
+export default index;
