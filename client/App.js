@@ -9,7 +9,7 @@ import Footer from './components/public/Footer';
 import SignIn from './components/signs/SignIn';
 import SignUp from './components/signs/SignUp';
 import Storage from './components/Storage';
-import Profile from './components/profile'
+import Profile from './components/profile';
 function App() {
   const [navgate, setNavgate] = useState(3);
 
@@ -23,8 +23,10 @@ function App() {
             {navgate === 2 && <SignIn setNavgate={setNavgate} />}
             {navgate === 3 && <Cart setNavgate={setNavgate} />}
             {navgate === 4 && <SignUp setNavgate={setNavgate} />}
-            {navgate === 5 && <Profile navgate={navgate} setNavgate={setNavgate} />}
-            
+            {navgate === 5 && (
+              <Profile navgate={navgate} setNavgate={setNavgate} />
+            )}
+
             <Footer />
             <StatusBar style='auto' />
           </View>

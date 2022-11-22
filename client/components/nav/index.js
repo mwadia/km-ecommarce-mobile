@@ -4,23 +4,26 @@ import { IconButton } from 'react-native-paper';
 import { Store } from '../Storage';
 import { Badge } from 'react-native-paper';
 import Apiservices from '../../servese/ApiServices';
+import JwtServise from '../../servese/JwtServise';
 
 function Nav({ setNavgate, navgate }) {
-  const { countCart, setTotal, setCartProduct, SetCountCart,user } =
+  const { countCart, setTotal, setCartProduct, SetCountCart, user, setUser } =
     useContext(Store);
 
   const handleClickOpen = () => {
     setNavgate(3);
   };
   useEffect(() => {
-    Apiservices.get('/getcartproduct').then((res) => {
-      setCartProduct(res.data.data);
-      SetCountCart(res.data.data.length);
-      setTotal(
-        res.data.data.reduce((a, b) => a + b.Product.price * b.count, 0)
-      );
-    });
-  }, [navgate]);
+    if (user) {
+      Apiservices.get('/getcartproduct').then((res) => {
+        setCartProduct(res.data.data);
+        SetCountCart(res.data.data.length);
+        setTotal(
+          res.data.data.reduce((a, b) => a + b.Product.price * b.count, 0)
+        );
+      });
+    }
+  }, [navgate, user]);
 
   return (
     <View
@@ -35,9 +38,8 @@ function Nav({ setNavgate, navgate }) {
       }}
     >
       <IconButton
-        iconColor='red'
         containerColor='gray'
-        icon='arrow-left-thick'
+        icon='diamond'
         onPress={() => setNavgate(0)}
       ></IconButton>
       <IconButton
@@ -45,30 +47,43 @@ function Nav({ setNavgate, navgate }) {
         textColor='#3d4526'
         onPress={() => setNavgate(1)}
       ></IconButton>
-      <IconButton
-        icon='login-variant'
-        textColor='#3d4526'
-        onPress={() => setNavgate(2)}
-      ></IconButton>
-      <IconButton
-        icon='account-circle'
-        textColor='#3d4526'
-        onPress={() => setNavgate(5)}
-      ></IconButton>
-      {
-        user &&
-        <View style={{ position: 'relative' }}>
+      {user && (
         <IconButton
-          icon='cart'
+          icon='account-circle'
           textColor='#3d4526'
-          onPress={handleClickOpen}
+          onPress={() => setNavgate(5)}
         ></IconButton>
-        <Badge style={{ position: 'absolute', right: 5, top: 5 }}>
-          {countCart}
-        </Badge>
-      </View>
-      }
-    
+      )}
+      {user && (
+        <View style={{ position: 'relative' }}>
+          <IconButton
+            icon='cart'
+            textColor='#3d4526'
+            onPress={handleClickOpen}
+          ></IconButton>
+          <Badge style={{ position: 'absolute', right: 5, top: 5 }}>
+            {countCart}
+          </Badge>
+        </View>
+      )}
+      {!user && (
+        <IconButton
+          icon='login-variant'
+          textColor='#3d4526'
+          onPress={() => setNavgate(2)}
+        ></IconButton>
+      )}
+      {user && (
+        <IconButton
+          icon='logout'
+          textColor='#3d4526'
+          onPress={() => {
+            JwtServise.destroyToken();
+            setUser(null);
+            setNavgate(2);
+          }}
+        ></IconButton>
+      )}
     </View>
   );
 }

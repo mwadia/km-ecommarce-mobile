@@ -5,7 +5,8 @@ import UseUpdateImg from '../../hook/UseUpdateImg';
 import Apiservices from '../../servese/ApiServices';
 import JwtServise from '../../servese/JwtServise';
 import { Store } from '../Storage';
-function SignUp() {
+function SignUp({ setNavgate }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [signUp, setSignUp] = useState({
     name: '',
     email: '',
@@ -19,6 +20,7 @@ function SignUp() {
     const newData = new FormData();
     newData.append('file', imgFile);
     newData.append('data', JSON.stringify(signUp));
+    setIsLoading(true);
     Apiservices({
       method: 'post',
       url: '/signup',
@@ -26,9 +28,20 @@ function SignUp() {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then((isExist) => {
+        setIsLoading(false);
+
         if (isExist.data.data) {
           JwtServise.setToken(isExist.data.data.token);
           setUser(isExist.data.data);
+          setNavgate(1);
+          setSignUp({
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            userImg: '',
+          });
+          setImgFile('');
         }
       })
       .catch((err) => console.log(err));
@@ -47,7 +60,6 @@ function SignUp() {
         }}
       >
         <View style={{ alignSelf: 'center' }}>
-          <Text onPress={() => console.log(user)}>user</Text>
           <Image
             style={{ width: 100, height: 100 }}
             source={require('../../assets/logo.jpeg')}
@@ -82,9 +94,10 @@ function SignUp() {
             activeOutlineColor='#b97d3b'
             mode='outlined'
             label='password'
+            secureTextEntry={true}
             value={signUp.password}
             onChangeText={(text) => setSignUp({ ...signUp, password: text })}
-            style={{ marginBottom: 5 }}
+            style={{ marginBottom: 10, backgroundColor: '#fffcfc' }}
           />
         </View>
 
@@ -95,17 +108,20 @@ function SignUp() {
           textColor='#b97d3b'
           style={{
             borderRadius: 5,
-            height: 50,
+            height: 45,
             marginTop: 20,
             marginBottom: 7,
           }}
+          loading={isLoading}
           mode='contained'
         >
           Sign up
         </Button>
         <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
           <Text>Already have an account? </Text>
-          <Text style={{ color: '#b97d3b' }}>Login</Text>
+          <Text onPress={() => setNavgate(2)} style={{ color: '#b97d3b' }}>
+            Login
+          </Text>
         </View>
       </View>
     </View>

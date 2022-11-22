@@ -8,10 +8,10 @@ const Apiservices = axios.create({
 });
 
 Apiservices.interceptors.request.use(
- async (config) => {
-    let token=await JwtServise.getToken()
-   config.headers['Authorization'] = `Bearer ${token}`
-    
+  async (config) => {
+    let token = await JwtServise.getToken();
+    config.headers['Authorization'] = `Bearer ${token}`;
+
     return Promise.resolve(config);
   },
   (error) => {

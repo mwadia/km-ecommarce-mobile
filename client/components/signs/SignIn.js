@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View, Dimensions, Image } from 'react-native';
-import InputSign from './inputSign';
+import { Button, TextInput } from 'react-native-paper';
+import Apiservices from '../../servese/ApiServices';
+import JwtServise from '../../servese/JwtServise';
+import { Store } from '../Storage';
 
 function SignIn({ setNavgate }) {
+  const { setUser, cartProduct } = useContext(Store);
+  const [isLoading, setIsLoading] = useState(false);
   let ScreenHeight = Dimensions.get('window').height;
-
+  const [signin, setSignIn] = useState({
+    email: '',
+    password: '',
+  });
+  const handelSignIn = () => {
+    setIsLoading(true);
+    Apiservices.post('/signin', signin).then((res) => {
+      setIsLoading(false);
+      if (res.data.data) {
+        JwtServise.setToken(res.data.data.token);
+        setNavgate(1);
+        setUser(res.data.data);
+        setSignIn({
+          email: '',
+          password: '',
+        });
+      }
+    });
+  };
   return (
     <View
       style={{
@@ -28,8 +51,40 @@ function SignIn({ setNavgate }) {
           </Text>
         </View>
         <View>
-          <InputSign type={'email'} />
-          <InputSign type={'password'} />
+          <TextInput
+            outlineColor='#00000024'
+            activeOutlineColor='#b97d3b'
+            mode='outlined'
+            label='Email'
+            value={signin.email}
+            onChangeText={(text) => setSignIn({ ...signin, email: text })}
+            style={{ marginBottom: 5 }}
+          />
+          <TextInput
+            outlineColor='#00000024'
+            activeOutlineColor='#b97d3b'
+            mode='outlined'
+            label='Password'
+            secureTextEntry={true}
+            value={signin.password}
+            onChangeText={(text) => setSignIn({ ...signin, password: text })}
+            style={{ marginBottom: 5 }}
+          />
+          <Button
+            buttonColor='#f0e9dd'
+            textColor='#b97d3b'
+            style={{
+              borderRadius: 5,
+              height: 45,
+              marginTop: 20,
+              marginBottom: 7,
+            }}
+            loading={isLoading}
+            mode='contained'
+            onPress={handelSignIn}
+          >
+            Sign In
+          </Button>
         </View>
         {/* <ButtonSign type='Login' /> */}
         <View style={{ flexDirection: 'row', alignSelf: 'center' }}>

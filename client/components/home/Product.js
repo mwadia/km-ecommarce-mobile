@@ -7,7 +7,7 @@ import { IconButton } from 'react-native-paper';
 import Apiservices from '../../servese/ApiServices';
 import EditProduct from '../profile/EditProduct';
 
-const Product = ({ product,userProducts, setUserProducts }) => {
+const Product = ({ product, userProducts, setUserProducts }) => {
   const [newItem, setNewItem] = useState(product);
   const { id, name, price, count, productImg } = newItem;
   const { user, cartProduct, SetCountCart, countCart } = useContext(Store);
@@ -17,9 +17,8 @@ const Product = ({ product,userProducts, setUserProducts }) => {
     setUserProducts(userProducts.filter((e) => e.id !== id));
   };
   useEffect(() => {
-    if (cartProduct.some((e) => e.ProductId === id)) {
+    if (user && cartProduct.some((e) => e.ProductId === id)) {
       SetIsCart(true);
-      console.log(cartProduct.some((e) => e.ProductId === id));
     } else {
       SetIsCart(false);
     }
@@ -89,20 +88,16 @@ const Product = ({ product,userProducts, setUserProducts }) => {
           onPress={handelAddtoCart}
         ></IconButton>
       )}
-            {user && user.id === product.UserId && (
-              
-              <View style={{ position: 'absolute', top: 20,left:20 }}
-              >
-                
-        <EditProduct newItem={newItem} setNewItem={setNewItem}/>
-         <IconButton
-          icon='delete'
-          iconColor='#ffff'
-          textColor='#3d4526'
-          onPress={handelDelete}
-        ></IconButton>
-              </View>
-       
+      {user && user.id === product.UserId && (
+        <View style={{ position: 'absolute', top: 20, left: 20 }}>
+          <EditProduct newItem={newItem} setNewItem={setNewItem} />
+          <IconButton
+            icon='delete'
+            iconColor='#ffff'
+            textColor='#3d4526'
+            onPress={handelDelete}
+          ></IconButton>
+        </View>
       )}
     </Card>
   );

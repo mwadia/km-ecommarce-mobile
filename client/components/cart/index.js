@@ -26,11 +26,7 @@ function Cart() {
   };
 
   const handelBuy = () => {
-    Apiservices.put('/buyproducts', { total: total }).then((res) => {
-      // socket.emit('notification', {
-      //   data: cartProduct.map((e) => (e = e.Product.UserId)),
-      // });
-    });
+    Apiservices.put('/buyproducts', { total: total }).then((res) => {});
     setTotal(0);
     setCartProduct([]);
     SetCountCart(0);
@@ -51,9 +47,10 @@ function Cart() {
         <Text onPress={handelDeletedAll}>Delete All Products</Text>
       </View>
       <View>
-        {cartProduct.map((product) => (
-          <ProductCart key={product.id} product={product} />
-        ))}
+        {cartProduct &&
+          cartProduct.map((product) => (
+            <ProductCart key={product.id} product={product} />
+          ))}
       </View>
     </View>
   );

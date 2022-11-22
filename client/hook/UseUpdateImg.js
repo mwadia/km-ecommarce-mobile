@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, Text } from 'react-native';
+import { Image, View, Platform, Text } from 'react-native';
+import { Button } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function UseUpdateImg({ setImgFile }) {
@@ -24,7 +25,23 @@ export default function UseUpdateImg({ setImgFile }) {
 
   return (
     <View>
-      <Button title='Pick an image from camera roll' onPress={pickImage} />
+      <Button
+        style={{
+          borderRadius: 7,
+          borderWidth: 1,
+          borderColor: '#e4e4e4',
+          height: 45,
+          // alignItems: 'flex-start',
+          marginStart: 0,
+        }}
+        buttonColor='#fffcfc'
+        textColor='black'
+        mode='contained'
+        onPress={pickImage}
+      >
+        <Text style={{ fontWeight: '400' }}>Pick an image</Text>
+      </Button>
+      {/* <Button color='#fff' title='Pick an image' onPress={pickImage} /> */}
     </View>
   );
 }

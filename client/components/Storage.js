@@ -38,6 +38,7 @@ function Storage(props) {
           setCartProduct,
           total,
           setTotal,
+          setUser,
         }}
       >
         {props.children}
