@@ -6,7 +6,7 @@ import AddNewProduct from './AddNewProduct';
 function UserInfo({ user, userProducts, setUserProducts }) {
   return (
     <View
-      style={{ marginTop: 100, flexDirection: 'column', alignItems: 'center' }}
+      style={{ marginTop: 200, flexDirection: 'column', alignItems: 'center' }}
     >
       <Avatar.Image size={200} source={{ uri: user.userImg }} />
       <Title style={{ fontSize: 25 }}>{user.name}</Title>

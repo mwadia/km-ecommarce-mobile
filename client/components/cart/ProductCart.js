@@ -124,7 +124,7 @@ const ProductCart = ({ product }) => {
       <IconButton
         icon='delete'
         textColor='#3d4526'
-        iconColor='red'
+        iconColor='#2d3024b0'
         onPress={removeFromCart}
         style={{ position: 'absolute', right: 0 }}
       ></IconButton>

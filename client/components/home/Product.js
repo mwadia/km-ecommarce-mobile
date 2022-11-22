@@ -82,18 +82,28 @@ const Product = ({ product, userProducts, setUserProducts }) => {
       {user && user.id !== product.UserId && (
         <IconButton
           style={{ position: 'absolute', top: 20, right: 20 }}
+          icon='cart-outline'
+          iconColor='#0000005e'
+          textColor='#3d4526'
+          onPress={handelAddtoCart}
+        ></IconButton>
+      )}
+      {user && user.id !== product.UserId && isCart && (
+        <IconButton
+          style={{ position: 'absolute', top: 20, right: 20 }}
           icon='cart'
-          iconColor={isCart ? 'red' : 'black'}
+          iconColor='#000000ad'
           textColor='#3d4526'
           onPress={handelAddtoCart}
         ></IconButton>
       )}
       {user && user.id === product.UserId && (
-        <View style={{ position: 'absolute', top: 20, left: 20 }}>
+        <View style={{ position: 'absolute', top: 0, left: 0 }}>
           <EditProduct newItem={newItem} setNewItem={setNewItem} />
           <IconButton
+            style={{ margin: 0 }}
             icon='delete'
-            iconColor='#ffff'
+            iconColor='#0000005e'
             textColor='#3d4526'
             onPress={handelDelete}
           ></IconButton>

@@ -11,7 +11,7 @@ const AddNewProduct = ({ userProducts, setUserProducts }) => {
   const [visible, setVisible] = React.useState(false);
   const [imgFile, setImgFile] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
-
+  const [isError, setError] = React.useState('');
   const [newProduct, setNewProduct] = React.useState({
     id: 0,
     name: '',
@@ -23,38 +23,50 @@ const AddNewProduct = ({ userProducts, setUserProducts }) => {
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
   const handelAddProduct = () => {
-    const newData = new FormData();
-    newData.append('file', imgFile);
-    newData.append('data', JSON.stringify(newProduct));
-    setIsLoading(true);
-    Apiservices({
-      method: 'post',
-      url: '/addnewproduct',
-      data: newData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-      .then((isExist) => {
-        setIsLoading(false);
+    if (
+      newProduct.name &&
+      newProduct.price &&
+      newProduct.count &&
+      newProduct.category
+    ) {
+      setError('');
 
-        if (isExist.data.data) {
-          setUserProducts([isExist.data.data, ...userProducts]);
-          setVisible(false);
-
-          setNewProduct({
-            id: 0,
-            name: '',
-            price: '',
-            count: '',
-            category: '',
-          });
-          setImgFile('');
-        }
+      const newData = new FormData();
+      newData.append('file', imgFile);
+      newData.append('data', JSON.stringify(newProduct));
+      setIsLoading(true);
+      Apiservices({
+        method: 'post',
+        url: '/addnewproduct',
+        data: newData,
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
-      .catch(() => {
-        setIsLoading(false);
+        .then((isExist) => {
+          setIsLoading(false);
 
-        // code to run if there are any problems
-      });
+          if (isExist.data.data) {
+            setUserProducts([isExist.data.data, ...userProducts]);
+            setVisible(false);
+
+            setNewProduct({
+              id: 0,
+              name: '',
+              price: '',
+              count: '',
+              category: '',
+            });
+            setImgFile('');
+          } else {
+            setError(res.data.msg);
+          }
+        })
+        .catch(() => {
+          setIsLoading(false);
+          // code to run if there are any problems
+        });
+    } else {
+      setError('please fill all fields');
+    }
   };
   return (
     <Provider>
@@ -66,6 +78,7 @@ const AddNewProduct = ({ userProducts, setUserProducts }) => {
           style={{ height: ScreenHeight }}
         >
           <View>
+            <Text style={{ textAlign: 'center', color: 'red' }}>{isError}</Text>
             <TextInput
               outlineColor='#00000024'
               activeOutlineColor='#b97d3b'
@@ -155,7 +168,19 @@ const AddNewProduct = ({ userProducts, setUserProducts }) => {
           </View>
         </Modal>
       </Portal>
-      <Button style={{ marginTop: 30 }} onPress={showModal}>
+      <Button
+        textColor='#b97d3b'
+        style={{
+          backgroundColor: '#f0e9dd',
+          width: 200,
+          alignSelf: 'center',
+          borderRadius: 5,
+          height: 45,
+          marginTop: 20,
+          marginBottom: 7,
+        }}
+        onPress={showModal}
+      >
         Add New Product
       </Button>
     </Provider>

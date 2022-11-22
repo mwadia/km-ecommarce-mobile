@@ -27,7 +27,7 @@ function App() {
               <Profile navgate={navgate} setNavgate={setNavgate} />
             )}
 
-            <Footer />
+            {/* <Footer /> */}
             <StatusBar style='auto' />
           </View>
         </ScrollView>

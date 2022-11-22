@@ -5,7 +5,7 @@ import AddNewProduct from './AddNewProduct';
 
 function UserProducts({ userProducts, setUserProducts }) {
   return (
-    <View>
+    <View style={{ marginTop: 130 }}>
       {userProducts.map((e) => (
         <Product
           setUserProducts={setUserProducts}

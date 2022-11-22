@@ -8,34 +8,35 @@ import { Store } from '../Storage';
 function SignIn({ setNavgate }) {
   const { setUser, cartProduct } = useContext(Store);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError,setIsError]=useState('')
+  const [isError, setIsError] = useState('');
   let ScreenHeight = Dimensions.get('window').height;
   const [signin, setSignIn] = useState({
     email: '',
     password: '',
   });
-  const handelSignIn =async () => {
-    try{
-      if(signin.email && signin.password){
-    setIsLoading(true);
-    setIsError('')
-    Apiservices.post('/signin', signin).then((res) => {
-      setIsLoading(false);
-      if (res.data.data) {
-        JwtServise.setToken(res.data.data.token);
-        setNavgate(1);
-        setUser(res.data.data);
-        setSignIn({
-          email: '',
-          password: '',
+  const handelSignIn = async () => {
+    try {
+      if (signin.email && signin.password) {
+        setIsLoading(true);
+        setIsError('');
+        Apiservices.post('/signin', signin).then((res) => {
+          setIsLoading(false);
+          if (res.data.data) {
+            JwtServise.setToken(res.data.data.token);
+            setNavgate(1);
+            setUser(res.data.data);
+            setSignIn({
+              email: '',
+              password: '',
+            });
+          } else {
+            setIsError(res.data.msg);
+          }
         });
-      }else{
-        setIsError(res.data.msg)
+      } else {
+        setIsError('please fill all fields');
       }
-    }); }else{
-      setIsError('plz')
-    }
-  }catch (err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -62,7 +63,7 @@ function SignIn({ setNavgate }) {
           </Text>
         </View>
         <View>
-          <Text>{isError}</Text>
+          <Text style={{ textAlign: 'center', color: 'red' }}>{isError}</Text>
           <TextInput
             outlineColor='#00000024'
             activeOutlineColor='#b97d3b'

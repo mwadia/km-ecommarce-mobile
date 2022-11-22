@@ -7,7 +7,7 @@ import JwtServise from '../../servese/JwtServise';
 import { Store } from '../Storage';
 function SignUp({ setNavgate }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [isError,setIserror]=useState('')
+  const [isError, setIserror] = useState('');
   const [signUp, setSignUp] = useState({
     name: '',
     email: '',
@@ -22,39 +22,38 @@ function SignUp({ setNavgate }) {
     newData.append('file', imgFile);
     newData.append('data', JSON.stringify(signUp));
     setIsLoading(true);
-    if(imgFile &&signUp.name && signUp.email&& signUp.password  ){
-      setIserror('')
-    Apiservices({
-      method: 'post',
-      url: '/signup',
-      data: newData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-      .then((isExist) => {
-        setIsLoading(false);
-
-        if (isExist.data.data) {
-          JwtServise.setToken(isExist.data.data.token);
-          setUser(isExist.data.data);
-          setNavgate(1);
-          setSignUp({
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            userImg: '',
-          });
-          setImgFile('');
-        }else{
-          setIserror(isExist.data.msg)
-        }
+    if (imgFile && signUp.name && signUp.email && signUp.password) {
+      setIserror('');
+      Apiservices({
+        method: 'post',
+        url: '/signup',
+        data: newData,
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
-      .catch((err) =>
-      setIsLoading(false)
-      );}else{
-        setIsLoading(false);
-        setIserror('plz')
-      }
+        .then((isExist) => {
+          setIsLoading(false);
+
+          if (isExist.data.data) {
+            JwtServise.setToken(isExist.data.data.token);
+            setUser(isExist.data.data);
+            setNavgate(1);
+            setSignUp({
+              name: '',
+              email: '',
+              password: '',
+              confirmPassword: '',
+              userImg: '',
+            });
+            setImgFile('');
+          } else {
+            setIserror(isExist.data.msg);
+          }
+        })
+        .catch((err) => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+      setIserror('please fill all fields');
+    }
   };
   let ScreenHeight = Dimensions.get('window').height;
 
@@ -79,7 +78,7 @@ function SignUp({ setNavgate }) {
           >
             Create Account
           </Text>
-          <Text>{isError}</Text>
+          <Text style={{ textAlign: 'center', color: 'red' }}>{isError}</Text>
         </View>
         <View>
           <TextInput

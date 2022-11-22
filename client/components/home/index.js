@@ -4,6 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import Products from './Products';
 import Apiservices from '../../servese/ApiServices';
 function Home() {
+  const [isActive, setIsActive] = useState(0);
   const [products, setProducts] = useState([]);
   const [text, setText] = React.useState('');
   let ScreenHeight = Dimensions.get('window').height;
@@ -21,6 +22,7 @@ function Home() {
 
     fetchProducts();
   }, [filter]);
+
   return (
     <View style={{ paddingTop: 100, minHeight: ScreenHeight }}>
       <TextInput
@@ -31,29 +33,37 @@ function Home() {
       />
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <Button
+          textColor={isActive === 0 ? '#b97d3b' : '#445740'}
           onPress={() => {
             setFilter({ ...filter, c: '' });
+            setIsActive(0);
           }}
         >
           All
         </Button>
         <Button
+          textColor={isActive === 1 ? '#b97d3b' : '#445740'}
           onPress={() => {
             setFilter({ ...filter, c: 'zalma' });
+            setIsActive(1);
           }}
         >
           Man
         </Button>
         <Button
+          textColor={isActive === 2 ? '#b97d3b' : '#445740'}
           onPress={() => {
             setFilter({ ...filter, c: 'woman' });
+            setIsActive(2);
           }}
         >
           Woman
         </Button>
         <Button
+          textColor={isActive === 3 ? '#b97d3b' : '#445740'}
           onPress={() => {
             setFilter({ ...filter, c: 'chaild' });
+            setIsActive(3);
           }}
         >
           Chaild

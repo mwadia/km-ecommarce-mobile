@@ -34,23 +34,23 @@ function Nav({ setNavgate, navgate }) {
         bottom: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: 'grey',
+        backgroundColor: 'black',
       }}
     >
       <IconButton
-        containerColor='gray'
+        iconColor='#fff'
         icon='diamond'
         onPress={() => setNavgate(0)}
       ></IconButton>
       <IconButton
         icon='home'
-        textColor='#3d4526'
+        iconColor='#fff'
         onPress={() => setNavgate(1)}
       ></IconButton>
       {user && (
         <IconButton
           icon='account-circle'
-          textColor='#3d4526'
+          iconColor='#fff'
           onPress={() => setNavgate(5)}
         ></IconButton>
       )}
@@ -58,7 +58,7 @@ function Nav({ setNavgate, navgate }) {
         <View style={{ position: 'relative' }}>
           <IconButton
             icon='cart'
-            textColor='#3d4526'
+            iconColor='#fff'
             onPress={handleClickOpen}
           ></IconButton>
           <Badge style={{ position: 'absolute', right: 5, top: 5 }}>
@@ -69,14 +69,14 @@ function Nav({ setNavgate, navgate }) {
       {!user && (
         <IconButton
           icon='login-variant'
-          textColor='#3d4526'
+          iconColor='#fff'
           onPress={() => setNavgate(2)}
         ></IconButton>
       )}
       {user && (
         <IconButton
           icon='logout'
-          textColor='#3d4526'
+          iconColor='#fff'
           onPress={() => {
             JwtServise.destroyToken();
             setUser(null);
