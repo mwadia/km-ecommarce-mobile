@@ -5,13 +5,17 @@ import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { Store } from '../Storage';
 import { IconButton } from 'react-native-paper';
 import Apiservices from '../../servese/ApiServices';
+import EditProduct from '../profile/EditProduct';
 
-const Product = ({ product }) => {
+const Product = ({ product,userProducts, setUserProducts }) => {
   const [newItem, setNewItem] = useState(product);
   const { id, name, price, count, productImg } = newItem;
   const { user, cartProduct, SetCountCart, countCart } = useContext(Store);
   const [isCart, SetIsCart] = useState(false);
-
+  const handelDelete = () => {
+    Apiservices.delete(`/destroyproduct/${id}`);
+    setUserProducts(userProducts.filter((e) => e.id !== id));
+  };
   useEffect(() => {
     if (cartProduct.some((e) => e.ProductId === id)) {
       SetIsCart(true);
@@ -76,7 +80,7 @@ const Product = ({ product }) => {
           {count}
         </Button>
       </View>
-      {user && (
+      {user && user.id !== product.UserId && (
         <IconButton
           style={{ position: 'absolute', top: 20, right: 20 }}
           icon='cart'
@@ -84,6 +88,21 @@ const Product = ({ product }) => {
           textColor='#3d4526'
           onPress={handelAddtoCart}
         ></IconButton>
+      )}
+            {user && user.id === product.UserId && (
+              
+              <View style={{ position: 'absolute', top: 20,left:20 }}
+              >
+                
+        <EditProduct newItem={newItem} setNewItem={setNewItem}/>
+         <IconButton
+          icon='delete'
+          iconColor='#ffff'
+          textColor='#3d4526'
+          onPress={handelDelete}
+        ></IconButton>
+              </View>
+       
       )}
     </Card>
   );

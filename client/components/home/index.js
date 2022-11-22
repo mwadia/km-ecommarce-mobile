@@ -59,7 +59,7 @@ function Home() {
           Chaild
         </Button>
       </View>
-      <Products products={products} />
+      <Products setProducts={setProducts} products={products} />
     </View>
   );
 }

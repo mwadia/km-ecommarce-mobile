@@ -2,11 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import Product from './Product';
 
-function Products({ products }) {
+function Products({ products,setProducts }) {
   return (
     <View>
       {products.map((e) => (
-        <Product product={e} key={e.id} />
+        <Product  setUserProducts={setProducts} userProducts={products} product={e} key={e.id} />
       ))}
     </View>
   );

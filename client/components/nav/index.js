@@ -6,7 +6,7 @@ import { Badge } from 'react-native-paper';
 import Apiservices from '../../servese/ApiServices';
 
 function Nav({ setNavgate, navgate }) {
-  const { countCart, setTotal, setCartProduct, SetCountCart } =
+  const { countCart, setTotal, setCartProduct, SetCountCart,user } =
     useContext(Store);
 
   const handleClickOpen = () => {
@@ -50,12 +50,14 @@ function Nav({ setNavgate, navgate }) {
         textColor='#3d4526'
         onPress={() => setNavgate(2)}
       ></IconButton>
-      {/* <IconButton
-        icon='camera'
+      <IconButton
+        icon='account-circle'
         textColor='#3d4526'
-        onPress={() => setNavgate(3)}
-      ></IconButton> */}
-      <View style={{ position: 'relative' }}>
+        onPress={() => setNavgate(5)}
+      ></IconButton>
+      {
+        user &&
+        <View style={{ position: 'relative' }}>
         <IconButton
           icon='cart'
           textColor='#3d4526'
@@ -65,6 +67,8 @@ function Nav({ setNavgate, navgate }) {
           {countCart}
         </Badge>
       </View>
+      }
+    
     </View>
   );
 }
