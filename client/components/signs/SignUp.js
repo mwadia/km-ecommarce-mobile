@@ -7,6 +7,7 @@ import JwtServise from '../../servese/JwtServise';
 import { Store } from '../Storage';
 function SignUp({ setNavgate }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isError,setIserror]=useState('')
   const [signUp, setSignUp] = useState({
     name: '',
     email: '',
@@ -21,6 +22,8 @@ function SignUp({ setNavgate }) {
     newData.append('file', imgFile);
     newData.append('data', JSON.stringify(signUp));
     setIsLoading(true);
+    if(imgFile &&signUp.name && signUp.email&& signUp.password  ){
+      setIserror('')
     Apiservices({
       method: 'post',
       url: '/signup',
@@ -42,9 +45,16 @@ function SignUp({ setNavgate }) {
             userImg: '',
           });
           setImgFile('');
+        }else{
+          setIserror(isExist.data.msg)
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+      setIsLoading(false)
+      );}else{
+        setIsLoading(false);
+        setIserror('plz')
+      }
   };
   let ScreenHeight = Dimensions.get('window').height;
 
@@ -69,6 +79,7 @@ function SignUp({ setNavgate }) {
           >
             Create Account
           </Text>
+          <Text>{isError}</Text>
         </View>
         <View>
           <TextInput

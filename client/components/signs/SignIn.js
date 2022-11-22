@@ -8,13 +8,17 @@ import { Store } from '../Storage';
 function SignIn({ setNavgate }) {
   const { setUser, cartProduct } = useContext(Store);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError,setIsError]=useState('')
   let ScreenHeight = Dimensions.get('window').height;
   const [signin, setSignIn] = useState({
     email: '',
     password: '',
   });
-  const handelSignIn = () => {
+  const handelSignIn =async () => {
+    try{
+      if(signin.email && signin.password){
     setIsLoading(true);
+    setIsError('')
     Apiservices.post('/signin', signin).then((res) => {
       setIsLoading(false);
       if (res.data.data) {
@@ -25,8 +29,15 @@ function SignIn({ setNavgate }) {
           email: '',
           password: '',
         });
+      }else{
+        setIsError(res.data.msg)
       }
-    });
+    }); }else{
+      setIsError('plz')
+    }
+  }catch (err) {
+      console.log(err);
+    }
   };
   return (
     <View
@@ -51,6 +62,7 @@ function SignIn({ setNavgate }) {
           </Text>
         </View>
         <View>
+          <Text>{isError}</Text>
           <TextInput
             outlineColor='#00000024'
             activeOutlineColor='#b97d3b'
