@@ -56,7 +56,7 @@ const {user}=useContext(Store)
       <View  style={{ position: 'relative' }}>
         <IconButton
           icon='bell'
-          iconColor='black'
+          iconColor='#6b837d'
           onPress={handleClick}
           style={{ position: 'absolute', right: 0, top: 0 }}
         ></IconButton>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { Store } from '../Storage';
@@ -9,7 +9,7 @@ import JwtServise from '../../servese/JwtServise';
 function Nav({ setNavgate, navgate }) {
   const { countCart, setTotal, setCartProduct, SetCountCart, user, setUser } =
     useContext(Store);
-
+const [isActive,setIsActive]=useState(0)
   const handleClickOpen = () => {
     setNavgate(3);
   };
@@ -34,23 +34,23 @@ function Nav({ setNavgate, navgate }) {
         bottom: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: 'black',
+        backgroundColor: '#6b837d',
       }}
     >
       <IconButton
-        iconColor='#fff'
+        iconColor={navgate===0?'#efda7e':'#ffff'}
         icon='diamond'
         onPress={() => setNavgate(0)}
       ></IconButton>
       <IconButton
         icon='home'
-        iconColor='#fff'
+        iconColor={navgate===1?'#efda7e':'#ffff'}
         onPress={() => setNavgate(1)}
       ></IconButton>
       {user && (
         <IconButton
           icon='account-circle'
-          iconColor='#fff'
+          iconColor={navgate===5?'#efda7e':'#ffff'}
           onPress={() => setNavgate(5)}
         ></IconButton>
       )}
@@ -58,7 +58,7 @@ function Nav({ setNavgate, navgate }) {
         <View style={{ position: 'relative' }}>
           <IconButton
             icon='cart'
-            iconColor='#fff'
+            iconColor={navgate===3?'#efda7e':'#ffff'}
             onPress={handleClickOpen}
           ></IconButton>
           <Badge style={{ position: 'absolute', right: 5, top: 5 }}>
@@ -69,14 +69,14 @@ function Nav({ setNavgate, navgate }) {
       {!user && (
         <IconButton
           icon='login-variant'
-          iconColor='#fff'
+          iconColor={navgate===2?'#efda7e':'#ffff'}
           onPress={() => setNavgate(2)}
         ></IconButton>
       )}
       {user && (
         <IconButton
           icon='logout'
-          iconColor='#fff'
+          iconColor={navgate===2?'#efda7e':'#ffff'}
           onPress={() => {
             JwtServise.destroyToken();
             setUser(null);
