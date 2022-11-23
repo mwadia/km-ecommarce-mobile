@@ -4,7 +4,7 @@ import { Title } from 'react-native-paper';
 import Apiservices from '../../servese/ApiServices';
 import { Store } from '../Storage';
 import ProductCart from './ProductCart';
-
+import socket from '../../servese/Socket';
 function Cart() {
   let ScreenHeight = Dimensions.get('window').height;
 
@@ -26,10 +26,15 @@ function Cart() {
   };
 
   const handelBuy = () => {
-    Apiservices.put('/buyproducts', { total: total }).then((res) => {});
+    Apiservices.put('/buyproducts', { total: total }).then((res) => {
+      console.log(res.data);
+    });
     setTotal(0);
     setCartProduct([]);
     SetCountCart(0);
+    socket.emit('notification', {
+      data: cartProduct.map((e) => (e = e.Product.UserId)),
+    });
   };
 
   return (
