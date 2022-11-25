@@ -66,7 +66,7 @@ function Home() {
             setIsActive(3);
           }}
         >
-          Chaild
+          Child
         </Button>
       </View>
       <Products setProducts={setProducts} products={products} />

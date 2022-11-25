@@ -9,7 +9,6 @@ import JwtServise from '../../servese/JwtServise';
 function Nav({ setNavgate, navgate }) {
   const { countCart, setTotal, setCartProduct, SetCountCart, user, setUser } =
     useContext(Store);
-const [isActive,setIsActive]=useState(0)
   const handleClickOpen = () => {
     setNavgate(3);
   };

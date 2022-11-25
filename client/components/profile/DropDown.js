@@ -8,7 +8,7 @@ function DropDown({ newProduct, setNewProduct }) {
   const [items, setItems] = useState([
     { label: 'Man', value: 'zalma' },
     { label: 'Woman', value: 'woman' },
-    { label: 'Chaild', value: 'chaild' },
+    { label: 'Child', value: 'chaild' },
   ]);
   useEffect(() => {
     setNewProduct({ ...newProduct, category: value });
