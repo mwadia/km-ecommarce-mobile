@@ -55,7 +55,7 @@ function SignUp({ setNavgate }) {
       setIserror('please fill all fields');
     }
   };
-  let ScreenHeight = Dimensions.get('window').height;
+  let ScreenHeight = Dimensions.get('window').height+60;
 
   return (
     <View

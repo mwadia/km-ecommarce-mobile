@@ -9,7 +9,7 @@ import AddNewProduct from './AddNewProduct';
 
 function index({ setNavgate, navgate }) {
   const { user } = useContext(Store);
-  let ScreenHeight = Dimensions.get('window').height;
+  let ScreenHeight = Dimensions.get('window').height+60;
 
   const [userProducts, setUserProducts] = useState([]);
   const [userInfo, setUserInfo] = useState({});

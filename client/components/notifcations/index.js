@@ -10,7 +10,10 @@ function index() {
   const [MyNotificationsNum, setNMyNotificationsNum] = useState(0);
   const [ MyNotifications,setNMyNotifications]=useState([])
   const [visible, setVisible] = React.useState(false);
-  const hideModal = () => setVisible(false);
+  const hideModal = () =>{ 
+    Apiservices.delete('/destroyallaotifications');
+
+    setVisible(false)};
   const containerStyle = {backgroundColor: 'white', 
   paddingBottom: 20,position:'absolute',top:5,right:20,width:'80%',borderRadius:12};
 const {user}=useContext(Store)
@@ -27,17 +30,16 @@ const {user}=useContext(Store)
   },[])
   const handleClick = () => {
     setVisible(true);
-    Apiservices.get('/getnotifications').then((res) =>
+    Apiservices.get('/getnotifications').then((res) =>{
       setNMyNotifications(res.data.data)
+      console.log(res.data.data);}
     );
-    console.log(MyNotifications);
-    Apiservices.delete('/destroyallaotifications');
     setNMyNotificationsNum(0);
   };
   return (
     <>
     {user &&  <View  style={{position:'absolute',top:40,right:0,height:'100%',
-    zIndex:5,width:'100%',backgroundColor:'#3498db00'}}>
+    zIndex:visible?5:0,width:'100%',backgroundColor:'#3498db00'}}>
     {user && (
       <Provider>
       <Portal>
@@ -55,8 +57,8 @@ const {user}=useContext(Store)
       </Portal>
       <View  style={{ position: 'relative' }}>
         <IconButton
-          icon='bell'
-          iconColor='#6b837d'
+          icon={visible?'bell':'bell-outline'}
+          iconColor='black'
           onPress={handleClick}
           style={{ position: 'absolute', right: 0, top: 0 }}
         ></IconButton>

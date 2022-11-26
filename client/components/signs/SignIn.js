@@ -9,7 +9,7 @@ function SignIn({ setNavgate }) {
   const { setUser, cartProduct } = useContext(Store);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState('');
-  let ScreenHeight = Dimensions.get('window').height;
+  let ScreenHeight = Dimensions.get('window').height+60;
   const [signin, setSignIn] = useState({
     email: '',
     password: '',

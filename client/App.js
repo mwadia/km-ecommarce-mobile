@@ -32,8 +32,10 @@ function App() {
             {/* <Footer /> */}
             <StatusBar style='auto' />
           </View>
-        </ScrollView>
-        <Nav navgate={navgate} setNavgate={setNavgate} />
+        </ScrollView>{
+          navgate !== 0 && <Nav navgate={navgate} setNavgate={setNavgate} />
+        }
+       
       </Storage>
     </SafeAreaView>
   );
